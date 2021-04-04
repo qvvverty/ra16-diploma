@@ -7,6 +7,8 @@ import MainContainer from './components/MainContainer';
 import About from './components/About';
 import Contacts from './components/Contacts';
 import Page404 from './components/Page404';
+import TopSales from './components/TopSales';
+import Catalog from './components/Catalog';
 
 function App() {
   return (
@@ -16,8 +18,12 @@ function App() {
         <Banner />
         <Switch>
           <Route path="/about" component={About} />
+          <Route path="/catalog" component={Catalog} />
           <Route path="/contacts" component={Contacts} />
-          <Route exact path="/" />
+          <Route exact path="/">
+            <TopSales />
+            <Catalog />
+          </Route>
           <Route path="*" component={Page404} />
         </Switch>
       </MainContainer>
