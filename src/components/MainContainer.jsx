@@ -1,8 +1,8 @@
 export default function MainContainer(props) {
   return (
-    <main class="container">
-      <div class="row">
-        <div class="col">
+    <main className="container">
+      <div className="row">
+        <div className="col">
           {props.children}
         </div>
       </div>
