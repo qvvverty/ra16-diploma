@@ -564,3 +564,24 @@ h2, .h2 {
   background-color: #727e86;
   border-color: #727e86;
 }
+
+.nav-link-button {
+  padding: .5rem 1rem;
+
+  color: #727e86;
+
+  background-color: inherit;
+  border: none;
+}
+
+.nav-link-button.active {
+  color: #ff0000;
+}
+
+.nav-link-button.active:hover {
+  color: #ff0000;
+}
+
+.nav-link-button:hover {
+  color: #0056b3;
+}
