@@ -8,7 +8,7 @@ import About from './components/About';
 import Contacts from './components/Contacts';
 import Page404 from './components/Page404';
 import TopSales from './components/TopSales';
-import Catalog from './components/Catalog';
+import Catalog from './components/Catalog/Catalog';
 
 function App() {
   return (

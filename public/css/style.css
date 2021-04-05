@@ -585,3 +585,7 @@ h2, .h2 {
 .nav-link-button:hover {
   color: #0056b3;
 }
+
+.nav-link-button:focus {
+  outline: none;
+}
