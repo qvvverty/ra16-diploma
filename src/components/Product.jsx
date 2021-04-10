@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Product(props) {
   const [isImgHovered, setImgHovered] = useState(false);
@@ -18,7 +19,7 @@ export default function Product(props) {
         <div className="card-body">
           <p className="card-text">{props.title}</p>
           <p className="card-text">{props.price} руб.</p>
-          <a href="/products/1.html" className="btn btn-outline-primary">Заказать</a>
+          <Link to={'/catalog/' + props.id} className="btn btn-outline-primary">Заказать</Link>
         </div>
       </div>
     </div>

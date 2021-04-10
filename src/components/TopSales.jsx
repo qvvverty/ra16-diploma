@@ -33,6 +33,7 @@ export default function TopSales() {
         : <div className="row">
           {salesList.map(sale => <Product
             key={sale.id}
+            id={sale.id}
             title={sale.title}
             price={sale.price}
             images={sale.images}
