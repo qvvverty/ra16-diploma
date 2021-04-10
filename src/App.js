@@ -18,6 +18,7 @@ function App() {
         <Banner />
         <Switch>
           <Route path="/about" component={About} />
+          {/* <Route path="/catalog/search/:searchQuery" component={Catalog} /> */}
           <Route path="/catalog" component={Catalog} />
           <Route path="/contacts" component={Contacts} />
           <Route exact path="/">

@@ -13,7 +13,6 @@ export default function TopSales() {
         const response = await fetch(process.env.REACT_APP_API + 'top-sales');
         const topSalesList = await response.json();
         setSalesList(topSalesList);
-        console.log(topSalesList);
       } catch (error) {
         console.error(error.message);
       } finally {

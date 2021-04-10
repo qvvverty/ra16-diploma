@@ -2,14 +2,19 @@ import { useEffect, useState } from "react";
 import Categories from "./Categories";
 import Product from "../Product";
 import Preloader from "../Preloader";
+import Search from "./Search";
+// import { useLocation } from "react-router";
 
 export default function Catalog() {
+  // const location = useLocation();
+
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState([]);
   const [hasMoreItems, setHasMoreItems] = useState(true);
   const [activeCategory, setActiveCategory] = useState('');
 
   useEffect(() => {
+    // if (location.search) return;
     const fetchItems = async () => {
       setHasMoreItems(true);
       setLoading(true);
@@ -30,6 +35,7 @@ export default function Catalog() {
     }
 
     fetchItems();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeCategory]);
 
   const fetchMoreItems = async () => {
@@ -59,9 +65,11 @@ export default function Catalog() {
     <section className="catalog">
       <h2 className="text-center">Каталог</h2>
 
-      <form className="catalog-search-form form-inline">
-        <input className="form-control" placeholder="Поиск" />
-      </form>
+      <Search
+        setItems={setItems}
+        setLoading={setLoading}
+        setHasMoreItems={setHasMoreItems}
+      />
 
       <Categories
         activeCategory={activeCategory}

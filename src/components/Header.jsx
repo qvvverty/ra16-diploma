@@ -1,6 +1,32 @@
-import { Link, NavLink } from "react-router-dom";
+import { useState } from "react";
+import { Link, NavLink, useHistory } from "react-router-dom";
 
 export default function Header() {
+  const [searchExpanded, setSearchExpanded] = useState(false);
+  const [searchFieldValue, setSearchFieldValue] = useState('');
+  const history = useHistory();
+
+  const searchBtnHandler = () => {
+    if (searchFieldValue) {
+      searchSubmitHandler();
+    } else {
+      setSearchExpanded(!searchExpanded);
+    }
+  };
+
+  const inputHandler = event => {
+    setSearchFieldValue(event.target.value);
+  };
+
+  const searchSubmitHandler = event => {
+    if (event) event.preventDefault();
+    if (searchFieldValue) {
+      history.push('/catalog?' + searchFieldValue);
+    }
+    setSearchFieldValue('');
+    setSearchExpanded(false);
+  };
+
   return (
     <header className="container">
       <div className="row">
@@ -26,14 +52,27 @@ export default function Header() {
               </ul>
               <div>
                 <div className="header-controls-pics">
-                  <div data-id="search-expander" className="header-controls-pic header-controls-search"></div>
+                  <div
+                    data-id="search-expander"
+                    className="header-controls-pic header-controls-search"
+                    onClick={searchBtnHandler}
+                  />
                   <div className="header-controls-pic header-controls-cart">
                     <div className="header-controls-cart-full">1</div>
                     <div className="header-controls-cart-menu"></div>
                   </div>
                 </div>
-                <form data-id="search-form" className="header-controls-search-form form-inline invisible">
-                  <input className="form-control" placeholder="Поиск" />
+                <form
+                  data-id="search-form"
+                  className={`header-controls-search-form form-inline ${searchExpanded ? '' : 'invisible'}`}
+                  onSubmit={searchSubmitHandler}
+                >
+                  <input
+                    className="form-control"
+                    placeholder="Поиск"
+                    onChange={inputHandler}
+                    value={searchFieldValue}
+                  />
                 </form>
               </div>
             </div>
