@@ -57,10 +57,12 @@ export default function Header() {
                     className="header-controls-pic header-controls-search"
                     onClick={searchBtnHandler}
                   />
-                  <div className="header-controls-pic header-controls-cart">
-                    <div className="header-controls-cart-full">1</div>
-                    <div className="header-controls-cart-menu"></div>
-                  </div>
+                  <Link to="/cart">
+                    <div className="header-controls-pic header-controls-cart">
+                      <div className="header-controls-cart-full">1</div>
+                      <div className="header-controls-cart-menu"></div>
+                    </div>
+                  </Link>
                 </div>
                 <form
                   data-id="search-form"

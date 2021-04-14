@@ -10,7 +10,7 @@ import Page404 from './components/Page404';
 import TopSales from './components/TopSales';
 import Catalog from './components/Catalog/Catalog';
 import ProductCard from './components/ProductCard';
-import Cart from './Cart';
+import Cart from './components/Cart/Cart';
 
 function App() {
   return (

@@ -52,6 +52,45 @@ export default function ProductCard(props) {
 
   const addToCartBtnHandler = event => {
     event.preventDefault();
+
+    const newCartItem = {
+      id: props.match.params.id,
+      title: product.title,
+      size: selectedSize,
+      count: quantity,
+      price: product.price
+    };
+
+    let cartItems = [];
+    const cartItemsString = localStorage.getItem('cartItems');
+
+    if (!cartItemsString) {
+      console.log(cartItemsString);
+      cartItems.push(newCartItem);
+    } else {
+      try {
+        cartItems = JSON.parse(cartItemsString);
+      } catch {
+        console.error('Error parsing cart JSON');
+      }
+
+      if (Array.isArray(cartItems)) {
+        let itemFound = false;
+        for (const item of cartItems) {
+          if (
+            newCartItem.id === item.id
+            && newCartItem.size === item.size
+            && newCartItem.price === item.price
+          ) {
+            item.count += newCartItem.count;
+            itemFound = true;
+          }
+        }
+        if (!itemFound) cartItems.push(newCartItem);
+      }
+    }
+
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
     props.history.push('/cart');
   }
 
