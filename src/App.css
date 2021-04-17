@@ -1,0 +1,24 @@
+.status-message-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  height: 300px;
+
+  font-size: 18px;
+}
+
+.status-message {
+  padding: 20px;
+
+  background-color: rgba(12, 187, 12, 0.5);
+}
+
+.error {
+  background-color: rgba(235, 63, 63, 0.5);
+}
+
+.card-img-top {
+  height: 250px;
+  object-fit: contain;
+}

@@ -11,28 +11,31 @@ import TopSales from './components/TopSales';
 import Catalog from './components/Catalog/Catalog';
 import ProductCard from './components/ProductCard';
 import Cart from './components/Cart/Cart';
+import CartProvider from './contexts/CartProvider';
 
 function App() {
   return (
     <Router>
-      <Header />
-      <MainContainer>
-        <Banner />
-        <Switch>
-          <Route path="/about" component={About} />
-          {/* <Route path="/catalog/search/:searchQuery" component={Catalog} /> */}
-          <Route path="/cart" component={Cart} />
-          <Route path="/catalog/:id" component={ProductCard} />
-          <Route path="/catalog" component={Catalog} />
-          <Route path="/contacts" component={Contacts} />
-          <Route exact path="/">
-            <TopSales />
-            <Catalog />
-          </Route>
-          <Route path="*" component={Page404} />
-        </Switch>
-      </MainContainer>
-      <Footer />
+      <CartProvider>
+        <Header />
+        <MainContainer>
+          <Banner />
+          <Switch>
+            <Route path="/about" component={About} />
+            <Route path="/cart" component={Cart} />
+            {/* <Route path="/catalog/search/:searchQuery" component={Catalog} /> */}
+            <Route path="/catalog/:id" component={ProductCard} />
+            <Route path="/catalog" component={Catalog} />
+            <Route path="/contacts" component={Contacts} />
+            <Route exact path="/">
+              <TopSales />
+              <Catalog />
+            </Route>
+            <Route path="*" component={Page404} />
+          </Switch>
+        </MainContainer>
+        <Footer />
+      </CartProvider>
     </Router>
   );
 }

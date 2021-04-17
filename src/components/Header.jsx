@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, NavLink, useHistory } from "react-router-dom";
+import CartContext from "../contexts/CartContext";
 
 export default function Header() {
   const [searchExpanded, setSearchExpanded] = useState(false);
   const [searchFieldValue, setSearchFieldValue] = useState('');
   const history = useHistory();
+  const { cartCounter } = useContext(CartContext);
 
   const searchBtnHandler = () => {
     if (searchFieldValue) {
@@ -59,7 +61,7 @@ export default function Header() {
                   />
                   <Link to="/cart">
                     <div className="header-controls-pic header-controls-cart">
-                      <div className="header-controls-cart-full">1</div>
+                      {cartCounter > 0 && <div className="header-controls-cart-full">{cartCounter}</div>}
                       <div className="header-controls-cart-menu"></div>
                     </div>
                   </Link>

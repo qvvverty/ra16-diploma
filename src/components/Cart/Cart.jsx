@@ -1,82 +1,33 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+import CartContext from "../../contexts/CartContext";
+import Preloader from "../Preloader";
+import StatusMessage from "../StatusMessage";
 import CartItem from "./CartItem";
 
-const formInitial = {
-  phone: '',
-  address: '',
-  rulesAgreement: false
-};
-
 export default function Cart() {
-  const [cartItems, setCartItems] = useState([]);
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [formData, setFormData] = useState(formInitial);
+  const {
+    cartItems,
+    removeFromCart,
+    totalAmount,
+    formData,
+    updateFormData,
+    sendOrder,
+    loading,
+    statusMessage
+  } = useContext(CartContext);
 
-  useEffect(() => {
-    const cartItemsString = localStorage.getItem('cartItems');
-    if (!cartItemsString) return;
-
-    try {
-      setCartItems(JSON.parse(cartItemsString));
-    } catch {
-      console.error('Error parsing cart JSON');
-    }
-  }, []);
-
-  useEffect(() => {
-    const total = cartItems.reduce((previous, item) => previous += item.price * item.count, 0);
-    setTotalAmount(total);
-  }, [cartItems]);
-
-  useEffect(() => {
-    const formDataString = localStorage.getItem('formData');
-    if (!formDataString) return;
-    try {
-      setFormData(JSON.parse(formDataString));
-    } catch {
-      console.error('Error parsing form data JSON');
-    }
-  }, []);
-
-  const removeItemBtnHandler = id => {
-    const cartUpdated = cartItems.filter(item => item.id !== id);
-    setCartItems(cartUpdated);
-    localStorage.setItem('cartItems', JSON.stringify(cartUpdated));
-  };
-
-  const formInputHandler = event => {
-    const formDataUpdated = {
-      ...formData,
-      [event.target.name]: event.target[event.target.name === 'rulesAgreement' ? 'checked' : 'value']
-    };
-    setFormData(formDataUpdated);
-    localStorage.setItem('formData', JSON.stringify(formDataUpdated));
-  };
-
-  const formSubmitHandler = async event => {
+  const formSubmitHandler = event => {
     event.preventDefault();
-
-    const response = await fetch(process.env.REACT_APP_API + 'order', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(
-        {
-          items: cartItems.map(item => {
-            return { id: +item.id, price: item.price, count: item.count }
-          }),
-          owner: {
-            phone: formData.phone,
-            address: formData.address
-          }
-        }
-      )
-    });
-    if (response.ok) {
-      console.log(response);
-    }
+    sendOrder();
   };
+
+  if (loading) return (
+    <div style={{ margin: '75px auto' }}>
+      <Preloader />
+    </div>
+  );
+
+  if (statusMessage.display) return <StatusMessage success={statusMessage.success} />
 
   return (
     <>
@@ -101,7 +52,7 @@ export default function Cart() {
                   key={item.id}
                   {...item}
                   tableCount={index + 1}
-                  removeBtnHandler={() => removeItemBtnHandler(item.id)}
+                  removeBtnHandler={() => removeFromCart(item.id)}
                 />
               )
             })}
@@ -123,7 +74,7 @@ export default function Cart() {
                 id="phone"
                 name="phone"
                 placeholder="Ваш телефон"
-                onChange={formInputHandler}
+                onChange={updateFormData}
                 value={formData.phone}
               />
             </div>
@@ -134,7 +85,7 @@ export default function Cart() {
                 id="address"
                 name="address"
                 placeholder="Адрес доставки"
-                onChange={formInputHandler}
+                onChange={updateFormData}
                 value={formData.address}
               />
             </div>
@@ -145,7 +96,7 @@ export default function Cart() {
                 id="agreement"
                 name="rulesAgreement"
                 checked={formData.rulesAgreement}
-                onChange={formInputHandler}
+                onChange={updateFormData}
               />
               <label className="form-check-label" htmlFor="agreement">Согласен с правилами доставки</label>
             </div>
