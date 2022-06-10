@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import CartContext from "../contexts/CartContext";
 
@@ -7,6 +7,13 @@ export default function Header() {
   const [searchFieldValue, setSearchFieldValue] = useState('');
   const history = useHistory();
   const { cartCounter } = useContext(CartContext);
+  const searchFieldRef = useRef(null);
+
+  useEffect(() => {
+    if (searchExpanded) {
+      searchFieldRef.current.focus();
+    }
+  }, [searchExpanded]);
 
   const searchBtnHandler = () => {
     if (searchFieldValue) {
@@ -76,6 +83,7 @@ export default function Header() {
                     placeholder="Поиск"
                     onChange={inputHandler}
                     value={searchFieldValue}
+                    ref={searchFieldRef}
                   />
                 </form>
               </div>
