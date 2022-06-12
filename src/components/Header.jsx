@@ -30,7 +30,7 @@ export default function Header() {
   const searchSubmitHandler = event => {
     if (event) event.preventDefault();
     if (searchFieldValue) {
-      history.push('/catalog?' + searchFieldValue);
+      history.push('/catalog/search/' + searchFieldValue);
     }
     setSearchFieldValue('');
     setSearchExpanded(false);

@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useParams } from "react-router-dom";
 
 export default function Search({ setItems, setLoading, setHasMoreItems }) {
   const [searchFieldValue, setSearchFieldValue] = useState('');
-  const location = useLocation();
+  const { searchQuery } = useParams();
 
   useEffect(() => {
-    if (location.search) {
-      setSearchFieldValue(location.search.slice(1));
-      submitHandler();
+    if (searchQuery) {
+      setSearchFieldValue(searchQuery);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.search]);
+  }, [searchQuery]);
 
   const inputHandler = event => {
     setSearchFieldValue(event.target.value);

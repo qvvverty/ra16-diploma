@@ -23,7 +23,7 @@ function App() {
           <Switch>
             <Route path="/about" component={About} />
             <Route path="/cart" component={Cart} />
-            {/* <Route path="/catalog/search/:searchQuery" component={Catalog} /> */}
+            <Route path="/catalog/search/:searchQuery" component={Catalog} />
             <Route path="/catalog/:id" component={ProductCard} />
             <Route path="/catalog" component={Catalog} />
             <Route path="/contacts" component={Contacts} />

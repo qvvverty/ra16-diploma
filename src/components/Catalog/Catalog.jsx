@@ -3,27 +3,29 @@ import Categories from "./Categories";
 import Product from "../Product";
 import Preloader from "../Preloader";
 import Search from "./Search";
-// import { useLocation } from "react-router";
+import { useParams } from "react-router-dom";
 
 export default function Catalog() {
-  // const location = useLocation();
-
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState([]);
   const [hasMoreItems, setHasMoreItems] = useState(true);
   const [activeCategory, setActiveCategory] = useState('');
+  const { searchQuery } = useParams();
 
   useEffect(() => {
-    // if (location.search) return;
     const fetchItems = async () => {
       setHasMoreItems(true);
       setLoading(true);
+
+      let url;
+      if (searchQuery) {
+        url = process.env.REACT_APP_API + 'items?q=' + searchQuery;
+      } else {
+        url = process.env.REACT_APP_API + 'items?categoryId=' + activeCategory
+      }
+
       try {
-        const response = await fetch(
-          process.env.REACT_APP_API
-          + 'items'
-          + '?categoryId=' + activeCategory
-        );
+        const response = await fetch(url);
         const items = await response.json();
         if (items.length < 6) setHasMoreItems(false);
         setItems(items);
@@ -35,8 +37,7 @@ export default function Catalog() {
     }
 
     fetchItems();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeCategory]);
+  }, [activeCategory, searchQuery]);
 
   const fetchMoreItems = async () => {
     setLoading(true);
