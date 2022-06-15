@@ -15,7 +15,7 @@ import CartProvider from './contexts/CartProvider';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/ra16-diploma">
       <CartProvider>
         <Header />
         <MainContainer>

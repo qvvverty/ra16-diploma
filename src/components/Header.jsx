@@ -1,6 +1,7 @@
 import { useContext, useState, useRef, useEffect } from "react";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import CartContext from "../contexts/CartContext";
+import headerLogo from "../img/header-logo.png";
 
 export default function Header() {
   const [searchExpanded, setSearchExpanded] = useState(false);
@@ -42,7 +43,7 @@ export default function Header() {
         <div className="col">
           <nav className="navbar navbar-expand-sm navbar-light bg-light">
             <Link to="/" className="navbar-brand">
-              <img src="/img/header-logo.png" alt="Bosa Noga" />
+              <img src={headerLogo} alt="Bosa Noga" />
             </Link>
             <div className="collapase navbar-collapse" id="navbarMain">
               <ul className="navbar-nav mr-auto">
